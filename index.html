@@ -2,55 +2,59 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>صفحة الربح</title>
+    <title>Pilanko</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            background: #f4f4f4;
+            font-family: sans-serif;
+            background: #f2f2f2;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .card {
-            background: #fff;
-            width: 350px;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             text-align: center;
         }
-        h2 {
-            margin-bottom: 20px;
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+        h1 {
+            margin-bottom: 10px;
         }
         .box {
-            background: #eee;
+            background: #e9e9e9;
             padding: 15px;
-            margin-bottom: 15px;
             border-radius: 10px;
-            font-size: 22px;
+            margin: 15px 0;
+            font-size: 20px;
             font-weight: bold;
         }
         button {
-            width: 100%;
-            padding: 12px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 10px;
             background: #007bff;
             color: #fff;
+            border-radius: 8px;
             font-size: 18px;
             cursor: pointer;
+        }
+        button:hover {
+            background: #0056c1;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <img src="https://magdamgd59-oss.github.io/Plinko/logo.png" alt="شعار بلاينكو" style="width:120px
-        <div class="box">الربح المتوفر: 6850 ج</div>
-        <div class="box">دفع الرسوم: 984 ج</div>
-        <button>دفع الآن</button>
-    </div>
+    <div class="container">
+        <img src="image.jpg" alt="صورة" style="width:100%; border-radius:15px; margin-bottom:15px;" />
+        <h1>موقع Pilanko</h1>
+        <p style="font-size:18px; font-weight:bold; color:#008000;">ألف مبروك! أرباحك زادت بسبب مضاعفة الأرباح ووصلت إلى 6850 جنيه</p>
+        <p style="font-size:18px; font-weight:bold; color:#c40000;">لازم تدفع أولاً 984 جنيه رسوم لتحويل المكسب لحضرتك</p><div class="box">الربح: 6850 جنيه</div>
+    <div class="box">دفع الرسوم: 984 جنيه</div>
+
+    <button onclick="alert('تم تسجيل طلبك!')">تأكيد</button>
+</div>
+
 </body>
 </html>
