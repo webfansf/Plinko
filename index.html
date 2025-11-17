@@ -1,95 +1,88 @@
 <!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>بلاينكو — Pilanko</title>
-  <style>
-    :root{ --accent:#ff2222; --bg1:#0b4fb2; --bg2:#0b67d1; }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:"Segoe UI",Tajawal,Arial,sans-serif}.bg{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,var(--bg1),var(--bg2));overflow:hidden}
-
-.sphere{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(180,40,40,0.95), rgba(130,20,20,0.95) 50%, rgba(90,10,10,0.95) 100%), rgba(220,40,40,0.95) 50%, rgba(170,10,10,0.9) 100%);filter:blur(8px);opacity:0.9;animation:floatY 8s infinite ease-in-out}
-.s1{width:360px;height:360px;right:8%;top:10%}
-.s2{width:220px;height:220px;left:6%;top:8%;animation-duration:10s}
-.s3{width:140px;height:140px;right:22%;bottom:12%;animation-duration:7s}
-.s4{width:90px;height:90px;left:28%;bottom:18%}
-.s5{width:260px;height:260px;left:45%;top:18%;opacity:0.75}
-
-@keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
-
-.overlay{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px;color:#000;text-align:center}
-.card{width:100%;max-width:960px;background:rgba(8,20,45,0.32);backdrop-filter:blur(6px);border-radius:18px;padding:32px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
-
-.title{font-size:52px;font-weight:900;margin:0 0 10px 0;-webkit-text-stroke:2px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
-.subtitle{font-size:32px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7);margin-bottom:24px}
-
-.row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-.info{background:rgba(255,255,255,0.06);padding:18px 22px;border-radius:12px;min-width:220px;text-align:center}
-.amount{font-size:34px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
-.label{font-size:22px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
-
-.btn-main{
-  padding:18px 34px;font-size:22px;font-weight:900;border:none;border-radius:14px;color:#fff;
-  background:linear-gradient(90deg,#ff0000,#ff4b4b);
-  cursor:pointer;box-shadow:0 0 20px rgba(255,0,0,0.7);
-  transition:0.25s;
-}
-.btn-main:hover{transform:scale(1.1);box-shadow:0 0 28px rgba(255,0,0,0.9)}
-
-.btn-secondary{padding:14px 26px;font-size:18px;color:#fff;background:transparent;border:1px solid rgba(255,255,255,0.3);border-radius:10px}
-
-/* Popup */
-#feesModal{
-  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);
-  justify-content:center;align-items:center;z-index:10;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plinko</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: url('https://i.imgur.com/dt8F9ZE.jpeg') center/cover no-repeat;
+        filter: blur(0px);
+        backdrop-filter: blur(6px);
+    }.overlay {
+    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,0.45);
+    min-height: 100vh;
+    padding: 20px;
 }
 
-.modal-box{
-  background:#fff;padding:32px;border-radius:20px;width:85%;max-width:380px;
-  text-align:center;font-size:22px;font-weight:700;color:#000;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
+.container {
+    max-width: 450px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
-.close-btn{
-  margin-top:20px;background:#000;color:#fff;border:none;padding:12px 26px;font-size:18px;border-radius:10px;cursor:pointer
+h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
-  </style>
+.row {
+    margin-top: 20px;
+}
+.info {
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+.label {
+    opacity: 0.85;
+}
+.amount {
+    font-weight: bold;
+}
+
+.btn-main {
+    background: #ff0044;
+    border: none;
+    padding: 14px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-main:hover {
+    background: #ff325f;
+}
+
+</style>
 </head>
 <body>
-  <div class="bg">
-    <div class="sphere s1"></div>
-    <div class="sphere s2"></div>
-    <div class="sphere s3"></div>
-    <div class="sphere s4"></div>
-    <div class="sphere s5"></div>
-  </div>  <main class="overlay">
-    <section class="card">
-      <h1 class="title">ألف مبروك!</h1>
-      <div class="subtitle">انت كسبت مع <strong>plinko</strong> والمكسب جاهز للسحب</div><div class="row">
-    <div class="info"><div class="label">الربح المتوقع</div><div class="amount">٦٬٨٥٠ ج</div></div>
-    <div class="info"><div class="label">رسوم تحويل المكسب</div><div class="amount">٩٨٤ ج</div></div>
-    <div class="info"><div class="label">الحالة</div><div class="amount">جاهز للسحب</div></div>
-  </div>
-
-  <div style="margin-top:30px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-    <button class="btn-main" onclick="openModal()">سحب الأرباح</button>
-    
-  </div>
-</section>
-
-  </main>  <!-- Popup Modal -->  <div id="feesModal">
-    <div class="modal-box">
-      برجاء سداد الرسوم ليتم تحويل المكسب إلى محفظتك<br><br>
-      <label style="font-weight:900;font-size:20px;color:#000;-webkit-text-stroke:1px #fff;text-shadow:0 0 5px rgba(255,255,255,0.7);"><span style="font-weight:900;font-size:20px;color:#fff;-webkit-text-stroke:1px #000;text-shadow:0 0 4px rgba(0,0,0,0.8);">ارفاق صورة (اسكرين شوت):</span></label>
-      <br><br>
-      <input type="file" id="uploadImg" style="padding:10px;border:2px dashed #000;border-radius:10px;width:100%;cursor:pointer">
-      <br><br>
-      <button class="close-btn" onclick="closeModal()">ادفع الرسوم ثم ارفع الاسكرين هنا</button>
+<div class="overlay">
+    <div class="container">
+        <h1>ألف مبروك 💰!</h1>
+        <p>انت كسبت مع <b>Plinko</b> والمكسب جاهز للسحب</p><div class="row">
+        <div class="info"><div class="label">الربح المتوقع</div><div class="amount">٦٬٨٥٠ ج</div></div>
+        <div class="info"><div class="label">رسوم تحويل المكسب</div><div class="amount">٩٨٤ ج</div></div>
+        <div class="info"><div class="label">الحالة</div><div class="amount">جاهز للسحب</div></div>
     </div>
-  </div>  <script>
-    function openModal(){ document.getElementById('feesModal').style.display='flex'; }
-    function closeModal(){ document.getElementById('feesModal').style.display='none'; }
-  </script></body>
+
+    <button class="btn-main" onclick="openModal()">سحب الأرباح</button>
+</div>
+
+</div>
+</body>
 </html>
