@@ -1,210 +1,121 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Plinko Rewards</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plinko</title>
 <style>
     body {
         margin: 0;
         padding: 0;
-        font-family: Arial, sans-serif;
-        background: #0b4cff;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        color: #fff;
-    }
+        font-family: sans-serif;
+        background: radial-gradient(circle at top, #004e92, #000428);
+    }.bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
 
-    /* خلفية ضبابية */
-    .blur-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,255,0.35);
-        backdrop-filter: blur(7px);
-        z-index: 1;
-    }
+.sphere {
+    position: absolute;
+    background: #ff3b3b;
+    border-radius: 50%;
+    opacity: 0.8;
+    filter: blur(2px);
+}
+.s1 { width: 160px; height: 160px; top: 10%; left: 15%; }
+.s2 { width: 110px; height: 110px; bottom: 20%; right: 18%; }
+.s3 { width: 70px; height: 70px; top: 45%; right: 30%; }
 
-    /* كرات حمراء */
-    .dots {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-    }
+.overlay {
+    background: rgba(0,0,0,0.3);
+    min-height: 100vh;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+}
 
-    .dot {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background: red;
-        border-radius: 50%;
-        opacity: 0.45;
-        filter: blur(2px);
-        animation: float 6s infinite ease-in-out;
-    }
+.container {
+    max-width: 450px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+}
 
-    @keyframes float {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-25px); }
-        100% { transform: translateY(0); }
-    }
+h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
 
-    /* صندوق المحتوى */
-    .box {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        padding: 30px;
-        width: 85%;
-        max-width: 420px;
-    }
+.row { margin-top: 20px; }
 
-    .title {
-        font-size: 48px;
-        font-weight: 900;
-        color: #fff;
-        -webkit-text-stroke: 2px #000;
-        margin-bottom: 10px;
-    }
+.info {
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
 
-    .subtitle {
-        font-size: 26px;
-        font-weight: 900;
-        color: #fff;
-        -webkit-text-stroke: 1.5px #000;
-        margin-bottom: 25px;
-        line-height: 1.5;
-    }
+.btn-main {
+    background: #ff0044;
+    border: none;
+    padding: 14px 25px;
+    font-size: 18px;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 18px;
+}
+.btn-main:hover { background: #ff325f; }
 
-    .btn {
-        background: #ffcc00;
-        color: #000;
-        font-size: 26px;
-        font-weight: 900;
-        padding: 16px 28px;
-        border: none;
-        border-radius: 14px;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .btn:hover {
-        transform: scale(1.04);
-    }
-
-    /* البوب أب */
-    .popup-bg {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 10;
-    }
-
-    .popup {
-        background: #fff;
-        color: #000;
-        width: 85%;
-        max-width: 380px;
-        padding: 25px;
-        border-radius: 14px;
-        text-align: center;
-        position: relative;
-    }
-
-    .popup h2 {
-        font-size: 26px;
-        font-weight: 900;
-        margin-bottom: 15px;
-    }
-
-    .upload-label {
-        font-size: 20px;
-        font-weight: 900;
-        color: #000;
-        margin-bottom: 12px;
-        display: block;
-    }
-
-    .upload-box {
-        border: 3px dashed #000;
-        padding: 18px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        cursor: pointer;
-    }
-
-    .arrow {
-        font-size: 40px;
-        font-weight: 900;
-        color: red;
-        animation: bounce 1s infinite;
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-
-    .popup button {
-        background: #ff0000;
-        color: #fff;
-        font-size: 22px;
-        font-weight: 900;
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        width: 100%;
-        margin-top: 10px;
-        cursor: pointer;
-    }
 </style>
 </head>
 <body>
-
-<div class="dots">
-    <div class="dot" style="top:20%; left:10%;"></div>
-    <div class="dot" style="top:40%; left:70%;"></div>
-    <div class="dot" style="top:65%; left:30%;"></div>
-    <div class="dot" style="top:15%; left:80%;"></div>
+<div class="bg">
+  <div class="sphere s1"></div>
+  <div class="sphere s2"></div>
+  <div class="sphere s3"></div>
 </div>
-
-<div class="blur-overlay"></div>
-
-<div class="box">
-    <div class="title">plinko</div>
-    <div class="subtitle">ألف مبروك انت كسبت مع plinko<br>والمكسب جاهز للسحب</div>
-    <button class="btn" onclick="openPopup()">سحب الأرباح</button>
-</div>
-
-<!-- البوب أب -->
-<div class="popup-bg" id="popup">
-    <div class="popup">
-        <h2>برجاء سداد الرسوم ليتم تحويل المكسب لمحفظتك</h2>
-
-        <label class="upload-label">إرفاق صورة</label>
-
-        <div class="arrow">⬇</div>
-
-        <div class="upload-box" onclick="document.getElementById('file').click()">
-            اضغط هنا لرفع الصورة
-        </div>
-
-        <input type="file" id="file" style="display:none">
-
-        <button>ادفع الرسوم وارسل الاسكرين وارفعه هنا</button>
+<div class="overlay">
+    <div class="container">
+        <h1>
+            مبروك! انت كسبت مع <b>Plinko</b><br>
+            والمكسب جاهز للسحب بمجرد دفع الرسوم<br>
+            ولا يمكن الخصم لأن السيستم بيبعتلك المكسب كامل
+        </h1><div class="row">
+        <div class="info"><div>المكسب</div><div><b>٦٬٨٥٠ ج</b></div></div>
+        <div class="info"><div>الرسوم</div><div><b>٩٨٤ ج</b></div></div>
+        <div class="info"><div>الحالة</div><div>جاهز للسحب</div></div>
     </div>
+
+    <button class="btn-main" onclick="openModal()">سحب الأرباح</button>
 </div>
 
-<script>
-function openPopup() {
-    document.getElementById("popup").style.display = "flex";
-}
-</script>
+</div><!-- Modal --><div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);padding:20px;z-index:999;">
+  <div style="max-width:420px;margin:auto;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:25px;color:#fff;text-align:center;backdrop-filter:blur(12px);">
+    <h2 style="font-size:26px;margin-bottom:10px;">سحب الأرباح 💰</h2>
+    <p style="opacity:0.9;margin-bottom:20px;">برجاء سداد الرسوم ليتم تحويل المكسب إلى محفظتك</p><div style="text-align:right;font-size:20px;margin-bottom:15px;">
+  <div style="background:rgba(255,255,255,0.08);padding:10px;border-radius:12px;margin-bottom:8px;display:flex;justify-content:space-between;"><span>المكسب</span><b>٦٬٨٥٠ ج</b></div>
+  <div style="background:rgba(255,255,255,0.08);padding:10px;border-radius:12px;display:flex;justify-content:space-between;"><span>الرسوم</span><b>٩٨٤ ج</b></div>
+</div>
 
-</body>
+<label style="display:block;margin:15px 0 10px;font-size:18px;">ارفع الاسكرين هنا:</label>
+<input type="file" style="width:100%;padding:10px;border-radius:12px;border:none;background:#fff;color:#000;" />
+
+<button onclick="closeModal()" style="margin-top:20px;background:#ff0044;border:none;padding:14px 20px;font-size:18px;border-radius:12px;color:#fff;width:100%;cursor:pointer;">تأكيد</button>
+
+  </div>
+</div><script>
+function openModal(){ document.getElementById('modal').style.display='block'; }
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+</script></body>
 </html>
