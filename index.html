@@ -74,14 +74,14 @@ p { opacity: 0.9; }
 }
 .btn-main:hover{ background:#ff325f; }
 
-@keyframes glowMove { 0% { text-shadow:0 0 8px #0ff, 0 0 16px #0ff; transform:translateX(0); } 50% { text-shadow:0 0 18px #0ff, 0 0 35px #0ff; transform:translateX(10px); } 100% { text-shadow:0 0 8px #0ff, 0 0 16px #0ff; transform:translateX(0); } } .plinko-anim { animation: glowMove 2.5s infinite ease-in-out; } @keyframes arrowMove { 0% {transform:translateY(0);} 50% {transform:translateY(6px);} 100% {transform:translateY(0);} } .arrow-anim { display:inline-block; animation: arrowMove 1.2s infinite ease-in-out; } </style>
+@keyframes glowMove { 0% { text-shadow:0 0 8px #0ff, 0 0 16px #0ff; transform:translateX(0); } 50% { text-shadow:0 0 18px #0ff, 0 0 35px #0ff; transform:translateX(10px); } 100% { text-shadow:0 0 8px #0ff, 0 0 16px #0ff; transform:translateX(0); } } .plinko-anim { animation: glowMove 2.5s infinite ease-in-out; } @keyframes arrowMove { 0% {transform:translateY(0); filter:drop-shadow(0 0 6px #0ff);} 50% {transform:translateY(-8px); filter:drop-shadow(0 0 14px #0ff);} 100% {transform:translateY(0); filter:drop-shadow(0 0 6px #0ff);} } 50% {transform:translateY(6px);} 100% {transform:translateY(0);} } .arrow-anim { display:inline-block; animation: arrowMove 1.2s infinite ease-in-out; } @keyframes mabrookMove {0%{transform:translateX(0);}50%{transform:translateX(8px);}100%{transform:translateX(0);}} .mabrook-anim{animation:mabrookMove 2s infinite ease-in-out;} </style>
 
 </head>
 <body>
 <h1 class="plinko-anim" style="font-size:42px;text-align:center;margin:20px 0;font-weight:900;color:#fff;letter-spacing:2px;text-shadow:0 0 10px #0ff, 0 0 20px #0ff;">PLINKO</h1><div class="bg-blur"></div>
 <div class="plinko-circle"></div><div class="container">
-    <h1>ألف مبروك 💰</h1>
-    <p>انت كسبت مع Plinko والمكسب جاهز للسحب بمجرد دفع الرسوم</p><div class="info"><span>المكسب</span><b>٦٬٨٥٠ ج</b></div>
+    <h1 class="mabrook-anim" style="font-size:32px;margin-bottom:6px;font-weight:900;color:#fff;text-shadow:0 0 12px #fff;">🎉 ألف مبروك 🎉</h1>
+    <p>مبروك كسبت مع <b>Plinko</b> والمكسب جاهز للسحب بمجرد دفع الرسوم</p><div class="info"><span>المكسب</span><b>٦٬٨٥٠ ج</b></div>
 <div class="info"><span>الرسوم</span><b>٩٨٤ ج</b></div>
 <div class="info"><span>الحالة</span><b>جاهز للسحب</b></div>
 
@@ -100,7 +100,7 @@ p { opacity: 0.9; }
 <label style="display:block;margin:15px 0 10px;font-size:18px;">ارفاق صورة:</label> <input type="file" style="width:100%;padding:10px;border-radius:12px;border:none;background:#fff;color:#000;" />
 
 <div class="upload-note" style="margin-top:12px;font-size:18px;color:#fff;text-align:center;font-weight:bold;">
-⬇️ <span class="arrow-anim">↘</span> ارفع الاسكرين هنا او تواصل مع استاذه ريهام ع الماسنجر
+⬇️ <span class="arrow-anim">⬆️</span> ارفع الاسكرين هنا او تواصل مع استاذه ريهام ع الماسنجر
 </div>
 </div></div>
 <script>
