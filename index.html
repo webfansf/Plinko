@@ -1,95 +1,210 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>بلاينكو — Pilanko</title>
-  <style>
-    :root{ --accent:#ff2222; --bg1:#0b4fb2; --bg2:#0b67d1; }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:"Segoe UI",Tajawal,Arial,sans-serif}.bg{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,var(--bg1),var(--bg2));overflow:hidden}
+<meta charset="UTF-8">
+<title>Plinko Rewards</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #0b4cff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        color: #fff;
+    }
 
-.sphere{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(180,40,40,0.95), rgba(130,20,20,0.95) 50%, rgba(90,10,10,0.95) 100%), rgba(220,40,40,0.95) 50%, rgba(170,10,10,0.9) 100%);filter:blur(8px);opacity:0.9;animation:floatY 8s infinite ease-in-out}
-.s1{width:360px;height:360px;right:8%;top:10%}
-.s2{width:220px;height:220px;left:6%;top:8%;animation-duration:10s}
-.s3{width:140px;height:140px;right:22%;bottom:12%;animation-duration:7s}
-.s4{width:90px;height:90px;left:28%;bottom:18%}
-.s5{width:260px;height:260px;left:45%;top:18%;opacity:0.75}
+    /* خلفية ضبابية */
+    .blur-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,255,0.35);
+        backdrop-filter: blur(7px);
+        z-index: 1;
+    }
 
-@keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+    /* كرات حمراء */
+    .dots {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
 
-.overlay{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px;color:#000;text-align:center}
-.card{width:100%;max-width:960px;background:rgba(8,20,45,0.32);backdrop-filter:blur(6px);border-radius:18px;padding:32px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .dot {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: red;
+        border-radius: 50%;
+        opacity: 0.45;
+        filter: blur(2px);
+        animation: float 6s infinite ease-in-out;
+    }
 
-.title{font-size:52px;font-weight:900;margin:0 0 10px 0;-webkit-text-stroke:2px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
-.subtitle{font-size:32px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7);margin-bottom:24px}
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-25px); }
+        100% { transform: translateY(0); }
+    }
 
-.row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-.info{background:rgba(255,255,255,0.06);padding:18px 22px;border-radius:12px;min-width:220px;text-align:center}
-.amount{font-size:34px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
-.label{font-size:22px;font-weight:900;-webkit-text-stroke:1px #fff;color:#000;text-shadow:0 0 6px rgba(255,255,255,0.7)}
+    /* صندوق المحتوى */
+    .box {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 30px;
+        width: 85%;
+        max-width: 420px;
+    }
 
-.btn-main{
-  padding:18px 34px;font-size:22px;font-weight:900;border:none;border-radius:14px;color:#fff;
-  background:linear-gradient(90deg,#ff0000,#ff4b4b);
-  cursor:pointer;box-shadow:0 0 20px rgba(255,0,0,0.7);
-  transition:0.25s;
-}
-.btn-main:hover{transform:scale(1.1);box-shadow:0 0 28px rgba(255,0,0,0.9)}
+    .title {
+        font-size: 48px;
+        font-weight: 900;
+        color: #fff;
+        -webkit-text-stroke: 2px #000;
+        margin-bottom: 10px;
+    }
 
-.btn-secondary{padding:14px 26px;font-size:18px;color:#fff;background:transparent;border:1px solid rgba(255,255,255,0.3);border-radius:10px}
+    .subtitle {
+        font-size: 26px;
+        font-weight: 900;
+        color: #fff;
+        -webkit-text-stroke: 1.5px #000;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
 
-/* Popup */
-#feesModal{
-  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);
-  justify-content:center;align-items:center;z-index:10;
-}
+    .btn {
+        background: #ffcc00;
+        color: #000;
+        font-size: 26px;
+        font-weight: 900;
+        padding: 16px 28px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        width: 100%;
+    }
 
-.modal-box{
-  background:#fff;padding:32px;border-radius:20px;width:85%;max-width:380px;
-  text-align:center;font-size:22px;font-weight:700;color:#000;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
-}
+    .btn:hover {
+        transform: scale(1.04);
+    }
 
-.close-btn{
-  margin-top:20px;background:#000;color:#fff;border:none;padding:12px 26px;font-size:18px;border-radius:10px;cursor:pointer
-}
+    /* البوب أب */
+    .popup-bg {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
 
-  </style>
+    .popup {
+        background: #fff;
+        color: #000;
+        width: 85%;
+        max-width: 380px;
+        padding: 25px;
+        border-radius: 14px;
+        text-align: center;
+        position: relative;
+    }
+
+    .popup h2 {
+        font-size: 26px;
+        font-weight: 900;
+        margin-bottom: 15px;
+    }
+
+    .upload-label {
+        font-size: 20px;
+        font-weight: 900;
+        color: #000;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .upload-box {
+        border: 3px dashed #000;
+        padding: 18px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .arrow {
+        font-size: 40px;
+        font-weight: 900;
+        color: red;
+        animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+    }
+
+    .popup button {
+        background: #ff0000;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 900;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        width: 100%;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
-  <div class="bg">
-    <div class="sphere s1"></div>
-    <div class="sphere s2"></div>
-    <div class="sphere s3"></div>
-    <div class="sphere s4"></div>
-    <div class="sphere s5"></div>
-  </div>  <main class="overlay">
-    <section class="card">
-      <h1 class="title">ألف مبروك!</h1>
-      <div class="subtitle">انت كسبت مع <strong>plinko</strong> والمكسب جاهز للسحب</div><div class="row">
-    <div class="info"><div class="label">الربح المتوقع</div><div class="amount">٦٬٨٥٠ ج</div></div>
-    <div class="info"><div class="label">رسوم تحويل المكسب</div><div class="amount">٩٨٤ ج</div></div>
-    <div class="info"><div class="label">الحالة</div><div class="amount">جاهز للسحب</div></div>
-  </div>
 
-  <div style="margin-top:30px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-    <button class="btn-main" onclick="openModal()">سحب الأرباح</button>
-    
-  </div>
-</section>
+<div class="dots">
+    <div class="dot" style="top:20%; left:10%;"></div>
+    <div class="dot" style="top:40%; left:70%;"></div>
+    <div class="dot" style="top:65%; left:30%;"></div>
+    <div class="dot" style="top:15%; left:80%;"></div>
+</div>
 
-  </main>  <!-- Popup Modal -->  <div id="feesModal">
-    <div class="modal-box">
-      برجاء سداد الرسوم ليتم تحويل المكسب إلى محفظتك<br><br>
-      <label style="font-weight:900;font-size:20px;color:#000;-webkit-text-stroke:1px #fff;text-shadow:0 0 5px rgba(255,255,255,0.7);"><span style="font-weight:900;font-size:20px;color:#fff;-webkit-text-stroke:1px #000;text-shadow:0 0 4px rgba(0,0,0,0.8);">ارفاق صورة (اسكرين شوت):</span></label>
-      <br><br>
-      <input type="file" id="uploadImg" style="padding:10px;border:2px dashed #000;border-radius:10px;width:100%;cursor:pointer">
-      <br><br>
-      <button class="close-btn" onclick="closeModal()">ادفع الرسوم ثم ارفع الاسكرين هنا</button>
+<div class="blur-overlay"></div>
+
+<div class="box">
+    <div class="title">plinko</div>
+    <div class="subtitle">ألف مبروك انت كسبت مع plinko<br>والمكسب جاهز للسحب</div>
+    <button class="btn" onclick="openPopup()">سحب الأرباح</button>
+</div>
+
+<!-- البوب أب -->
+<div class="popup-bg" id="popup">
+    <div class="popup">
+        <h2>برجاء سداد الرسوم ليتم تحويل المكسب لمحفظتك</h2>
+
+        <label class="upload-label">إرفاق صورة</label>
+
+        <div class="arrow">⬇</div>
+
+        <div class="upload-box" onclick="document.getElementById('file').click()">
+            اضغط هنا لرفع الصورة
+        </div>
+
+        <input type="file" id="file" style="display:none">
+
+        <button>ادفع الرسوم وارسل الاسكرين وارفعه هنا</button>
     </div>
-  </div>  <script>
-    function openModal(){ document.getElementById('feesModal').style.display='flex'; }
-    function closeModal(){ document.getElementById('feesModal').style.display='none'; }
-  </script></body>
+</div>
+
+<script>
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+</script>
+
+</body>
 </html>
